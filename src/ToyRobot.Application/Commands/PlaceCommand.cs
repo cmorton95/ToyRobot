@@ -32,7 +32,7 @@ namespace ToyRobot.Application.Commands
 
             return entity.Place(location, facing.ToDegrees()) 
                     ? $"Placed {entity.Name} at location {location.ToString()} facing {facing}" 
-                    : $"Failed to place {entity.Name}";
+                    : $"Failed to place";
         }
 
         private (ILocation loc, Cardinal f) ParseLocation(string locationArg) 
