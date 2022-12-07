@@ -13,7 +13,7 @@ dotnet build
 Run the application, optionally include the --verbose parameter to see verbose output.  
 ```
 cd src
-dotnet run --project src/ToyRobot.Main [--verbose]  
+dotnet run --project ToyRobot.Main [--verbose]  
 ```
 
 The following commands are available:
