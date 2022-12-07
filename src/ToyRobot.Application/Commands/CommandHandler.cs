@@ -48,10 +48,10 @@ namespace ToyRobot.Application.Commands
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            if (Commands.ContainsKey(command.Name))
+            if (Commands.ContainsKey(command.Name.ToUpper()))
                 throw new InvalidOperationException($"Only one command by name '{command.Name}' may be registered");
             
-            Commands.Add(command.Name, command);
+            Commands.Add(command.Name.ToUpper(), command);
             return this;
         }
 
@@ -59,9 +59,6 @@ namespace ToyRobot.Application.Commands
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
-
-            if (Entity != null)
-                throw new InvalidOperationException("Only one entity may be registered");
 
             Entity = entity;
             return this;
@@ -71,9 +68,6 @@ namespace ToyRobot.Application.Commands
         {
             if (space == null)
                 throw new ArgumentNullException(nameof(space));
-
-            if (Space != null)
-                throw new InvalidOperationException("Only one space may be registered");
 
             Space = space;
             return this;
