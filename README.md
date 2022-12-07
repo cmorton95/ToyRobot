@@ -32,7 +32,7 @@ HELP        - Show the help menu
 ## Dependencies
 
 The application is kept intentionally lightweight with minimal/no dependencies. 
-Resolve dependencies by using ```dotnet restore``` in the root folder of the cloned repostitory.  
+Resolve dependencies by using ```dotnet restore``` in the root folder of the cloned repository.  
 
 #### ToyRobot.Core
 None.  
