@@ -19,6 +19,11 @@ cd src
 dotnet run --project ToyRobot.Main [--verbose]  
 ```
 
+Alternatively, run unit tests (from the root directory)
+```
+dotnet test
+```
+
 The following commands are available:
 ```
 PLACE X,Y,F - Place the Robot at a given coordinate  
