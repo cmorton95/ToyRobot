@@ -35,6 +35,8 @@ namespace ToyRobot.Application.Entities
         public bool Move()
         {
             var nextLocation = Location.Transform(_pace, Direction);
+
+            //Only allow movement if the next location is in bounds
             if (Space.IsInBounds(nextLocation)) {
                 Location = nextLocation;
                 return true;

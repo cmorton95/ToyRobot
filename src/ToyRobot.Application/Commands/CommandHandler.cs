@@ -26,6 +26,7 @@ namespace ToyRobot.Application.Commands
             if (Commands.Count == 0)
                 throw new InvalidOperationException("Commands not registered");
 
+            //Split command string into commands and arguments
             var commandSplit = command.Split(" ");
 
             var commandUp = commandSplit.First().ToUpper();
@@ -40,6 +41,8 @@ namespace ToyRobot.Application.Commands
             {
                 var finalCommand = Commands[commandUp];
                 var response = finalCommand.Execute(Entity, args);
+
+                //Only return a response if the command is flagged verbose
                 return finalCommand.Verbose ? response : string.Empty;
             }
             return "Command not found";
@@ -77,6 +80,7 @@ namespace ToyRobot.Application.Commands
 
         private string GetHelp(string command = "")
         {
+            //Are we getting help for all functions?
             if (string.IsNullOrEmpty(command)) 
             {
                 return string.Join(Environment.NewLine, Commands.Select(kvp => kvp.Value.Help));
@@ -86,6 +90,7 @@ namespace ToyRobot.Application.Commands
                 var commandUp = command.ToUpper();
                 if (Commands.ContainsKey(commandUp)) 
                 {
+                    //Retrieve the detailed help information for the specific command
                     return Commands[commandUp].LongHelp;
                 }
                 return "Command not found";

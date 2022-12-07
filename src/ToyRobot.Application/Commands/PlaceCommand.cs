@@ -44,6 +44,7 @@ namespace ToyRobot.Application.Commands
 
         private (ILocation loc, Cardinal f) ParseLocation(string locationArg) 
         {
+            //Split the location by its 3 points
             var locationSplit = locationArg.Split(",");
 
             if (locationSplit.Length != 3)
@@ -56,10 +57,12 @@ namespace ToyRobot.Application.Commands
             double x, y;
             Cardinal f;
 
+            //Parse the string coordinates
             var resX = double.TryParse(stringX, out x);
             var resY = double.TryParse(stringY, out y);
             var resF = Enum.TryParse<Cardinal>(stringF, true, out f);
 
+            //Check the input was valid
             if (!resX || !resY || (!resF || !Enum.IsDefined<Cardinal>(f)))
                 throw new CommandException("Given coordinates not a valid location");
 

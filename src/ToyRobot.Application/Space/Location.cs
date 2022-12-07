@@ -22,8 +22,10 @@ namespace ToyRobot.Application.Space
             if (direction % 90 != 0)
                 throw new ArgumentException("Direction must be a multiple of 90", nameof(direction));
 
+            //Convert direction from degrees to radians
             var dirRad = Math.PI * direction / 180.0;
 
+            //Calculate the next X and Y coordinate, rounded
             var newX = Math.Round(_x + distance * Math.Sin(dirRad));
             var newY = Math.Round(_y + distance * Math.Cos(dirRad));
 
