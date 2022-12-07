@@ -11,6 +11,13 @@ namespace ToyRobot.Application.Commands
 
         public override string Description => "Rotate the Robot right 90 degrees";
 
+        public override bool Verbose { get; }
+
+        public RightCommand(bool verbose)
+        {
+            Verbose = verbose;
+        }
+
         public override string Execute(IEntity entity, params string[] args)
         {
             if (entity == null)

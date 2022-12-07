@@ -17,7 +17,7 @@ namespace ToyRobot.UnitTests.Commands
             entity.Setup(e => e.Direction).Returns(90);
             entity.Setup(e => e.IsPlaced).Returns(true);
 
-            var command = new LeftCommand();
+            var command = new LeftCommand(true);
             Assert.AreEqual("Successfully rotated left to facing direction: EAST", command.Execute(entity.Object, new string[0]));
         }
 
@@ -28,14 +28,14 @@ namespace ToyRobot.UnitTests.Commands
             entity.Setup(e => e.Left()).Returns(false);
             entity.Setup(e => e.IsPlaced).Returns(true);
 
-            var command = new LeftCommand();
+            var command = new LeftCommand(true);
             Assert.AreEqual("Failed to rotate", command.Execute(entity.Object, new string[0]));
         }
 
         [TestMethod]
         public void LeftCommand_Executes_Fail_ArgNull()
         {
-            var command = new LeftCommand();
+            var command = new LeftCommand(true);
             Assert.ThrowsException<ArgumentNullException>(() => command.Execute(null!, new string[0]));
         }
 
@@ -45,7 +45,7 @@ namespace ToyRobot.UnitTests.Commands
             var entity = new Mock<IEntity>();
             entity.Setup(e => e.Left()).Returns(true);
 
-            var command = new LeftCommand();
+            var command = new LeftCommand(true);
             var ex = Assert.ThrowsException<ArgumentCountException>(() => command.Execute(entity.Object, new string[1] { "Test" } ));
             Assert.AreEqual("Expected 0 arguments but got 1", ex.Message);
         }
@@ -57,7 +57,7 @@ namespace ToyRobot.UnitTests.Commands
             entity.Setup(e => e.Left()).Returns(true);
             entity.Setup(e => e.IsPlaced).Returns(false);
 
-            var command = new LeftCommand();
+            var command = new LeftCommand(true);
             var ex = Assert.ThrowsException<CommandException>(() => command.Execute(entity.Object, new string[0]));
             Assert.AreEqual("Command not valid: You must first place the Robot", ex.Message);
         }

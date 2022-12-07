@@ -17,7 +17,7 @@ namespace ToyRobot.UnitTests.Commands
             entity.Setup(e => e.Direction).Returns(90);
             entity.Setup(e => e.IsPlaced).Returns(true);
 
-            var command = new RightCommand();
+            var command = new RightCommand(true);
             Assert.AreEqual("Successfully rotated right to facing direction: EAST", command.Execute(entity.Object, new string[0]));
         }
 
@@ -28,14 +28,14 @@ namespace ToyRobot.UnitTests.Commands
             entity.Setup(e => e.Right()).Returns(false);
             entity.Setup(e => e.IsPlaced).Returns(true);
 
-            var command = new RightCommand();
+            var command = new RightCommand(true);
             Assert.AreEqual("Failed to rotate", command.Execute(entity.Object, new string[0]));
         }
 
         [TestMethod]
         public void RightCommand_Executes_Fail_ArgNull()
         {
-            var command = new RightCommand();
+            var command = new RightCommand(true);
             Assert.ThrowsException<ArgumentNullException>(() => command.Execute(null!, new string[0]));
         }
 
@@ -45,7 +45,7 @@ namespace ToyRobot.UnitTests.Commands
             var entity = new Mock<IEntity>();
             entity.Setup(e => e.Right()).Returns(true);
 
-            var command = new RightCommand();
+            var command = new RightCommand(true);
             var ex = Assert.ThrowsException<ArgumentCountException>(() => command.Execute(entity.Object, new string[1] { "Test" } ));
             Assert.AreEqual("Expected 0 arguments but got 1", ex.Message);
         }
@@ -57,7 +57,7 @@ namespace ToyRobot.UnitTests.Commands
             entity.Setup(e => e.Right()).Returns(true);
             entity.Setup(e => e.IsPlaced).Returns(false);
 
-            var command = new RightCommand();
+            var command = new RightCommand(true);
             var ex = Assert.ThrowsException<CommandException>(() => command.Execute(entity.Object, new string[0]));
             Assert.AreEqual("Command not valid: You must first place the Robot", ex.Message);
         }

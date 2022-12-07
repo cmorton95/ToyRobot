@@ -10,6 +10,8 @@ namespace ToyRobot.Application.Commands
 
         public override string Description => "Report the Robot's current location and facing direction";
 
+        public override bool Verbose => true;
+
         public override string Execute(IEntity entity, params string[] args)
         {
             if (entity == null)

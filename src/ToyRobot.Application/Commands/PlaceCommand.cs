@@ -19,6 +19,13 @@ namespace ToyRobot.Application.Commands
                                     + $"Y is the north/south coordinate"
                                     + $"F is the facing direction, NORTH, SOUTH, EAST or WEST";
 
+        public override bool Verbose { get; }
+
+        public PlaceCommand(bool verbose)
+        {
+            Verbose = verbose;
+        }
+
         public override string Execute(IEntity entity, params string[] args)
         {
             if (entity == null)

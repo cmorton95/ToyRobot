@@ -13,6 +13,8 @@ namespace ToyRobot.Application.Commands
 
         public virtual string LongHelp => $"{Help}";
 
+        public abstract bool Verbose { get; }
+
         public abstract string Execute(IEntity entity, string[] args);
     }
 }

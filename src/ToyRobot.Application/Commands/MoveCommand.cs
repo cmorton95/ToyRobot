@@ -1,6 +1,5 @@
 using ToyRobot.Application.Exceptions;
 using ToyRobot.Core.Entities;
-using ToyRobot.Core.Commands;
 
 namespace ToyRobot.Application.Commands
 {
@@ -9,6 +8,13 @@ namespace ToyRobot.Application.Commands
         public override string Name => "MOVE";
 
         public override string Description => "Move the Robot one square in its facing direction";
+
+        public override bool Verbose { get; }
+
+        public MoveCommand(bool verbose)
+        {
+            Verbose = verbose;
+        }
 
         public override string Execute(IEntity entity, params string[] args)
         {

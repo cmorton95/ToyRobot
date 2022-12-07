@@ -17,7 +17,7 @@ namespace ToyRobot.UnitTests.Commands
             entity.Setup(e => e.Place(It.IsAny<ILocation>(), It.IsAny<double>())).Returns(true);
             entity.Setup(e => e.Direction).Returns(90);
 
-            var command = new PlaceCommand();
+            var command = new PlaceCommand(true);
             Assert.AreEqual("Placed  at location 0,0 facing NORTH", command.Execute(entity.Object, new string[1] { "0,0,NORTH" }));
         }
 
@@ -27,14 +27,14 @@ namespace ToyRobot.UnitTests.Commands
             var entity = new Mock<IEntity>();
             entity.Setup(e => e.Place(It.IsAny<ILocation>(), It.IsAny<double>())).Returns(false);
 
-            var command = new PlaceCommand();
+            var command = new PlaceCommand(true);
             Assert.AreEqual("Failed to place", command.Execute(entity.Object, new string[1] { "0,0,NORTH" }));
         }
 
         [TestMethod]
         public void PlaceCommand_Executes_Fail_ArgNull()
         {
-            var command = new PlaceCommand();
+            var command = new PlaceCommand(true);
             Assert.ThrowsException<ArgumentNullException>(() => command.Execute(null!, new string[1] { "0,0,NORTH" }));
         }
 
@@ -44,7 +44,7 @@ namespace ToyRobot.UnitTests.Commands
             var entity = new Mock<IEntity>();
             entity.Setup(e => e.Place(It.IsAny<ILocation>(), It.IsAny<double>())).Returns(true);
 
-            var command = new PlaceCommand();
+            var command = new PlaceCommand(true);
             var ex = Assert.ThrowsException<ArgumentCountException>(() => command.Execute(entity.Object, new string[0] ));
             Assert.AreEqual("Expected 1 arguments but got 0", ex.Message);
         }
@@ -55,7 +55,7 @@ namespace ToyRobot.UnitTests.Commands
             var entity = new Mock<IEntity>();
             entity.Setup(e => e.Place(It.IsAny<ILocation>(), It.IsAny<double>())).Returns(true);
 
-            var command = new PlaceCommand();
+            var command = new PlaceCommand(true);
             var ex = Assert.ThrowsException<CommandException>(() => command.Execute(entity.Object, new string[1] { "test" }));
             Assert.AreEqual("Command not valid: Location must be formatted X,Y,F", ex.Message);
         }

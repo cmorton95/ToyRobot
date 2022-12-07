@@ -38,7 +38,9 @@ namespace ToyRobot.Application.Commands
 
             if (Commands.ContainsKey(commandUp)) 
             {
-                return Commands[commandUp].Execute(Entity, args);
+                var finalCommand = Commands[commandUp];
+                var response = finalCommand.Execute(Entity, args);
+                return finalCommand.Verbose ? response : string.Empty;
             }
             return "Command not found";
         }

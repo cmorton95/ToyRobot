@@ -19,7 +19,7 @@ namespace ToyRobot.UnitTests.Commands
             entity.Setup(e => e.IsPlaced).Returns(true);
             entity.Setup(e => e.Location).Returns(new Location(0,0));
 
-            var command = new MoveCommand();
+            var command = new MoveCommand(true);
             Assert.AreEqual("Successfully moved to: 0,0", command.Execute(entity.Object, new string[0]));
         }
 
@@ -30,14 +30,14 @@ namespace ToyRobot.UnitTests.Commands
             entity.Setup(e => e.Move()).Returns(false);
             entity.Setup(e => e.IsPlaced).Returns(true);
 
-            var command = new MoveCommand();
+            var command = new MoveCommand(true);
             Assert.AreEqual("Failed to move", command.Execute(entity.Object, new string[0]));
         }
 
         [TestMethod]
         public void MoveCommand_Executes_Fail_ArgNull()
         {
-            var command = new MoveCommand();
+            var command = new MoveCommand(true);
             Assert.ThrowsException<ArgumentNullException>(() => command.Execute(null!, new string[0]));
         }
 
@@ -47,7 +47,7 @@ namespace ToyRobot.UnitTests.Commands
             var entity = new Mock<IEntity>();
             entity.Setup(e => e.Move()).Returns(true);
 
-            var command = new MoveCommand();
+            var command = new MoveCommand(true);
             var ex = Assert.ThrowsException<ArgumentCountException>(() => command.Execute(entity.Object, new string[1] { "Test" } ));
             Assert.AreEqual("Expected 0 arguments but got 1", ex.Message);
         }
@@ -59,7 +59,7 @@ namespace ToyRobot.UnitTests.Commands
             entity.Setup(e => e.Move()).Returns(true);
             entity.Setup(e => e.IsPlaced).Returns(false);
 
-            var command = new MoveCommand();
+            var command = new MoveCommand(true);
             var ex = Assert.ThrowsException<CommandException>(() => command.Execute(entity.Object, new string[0]));
             Assert.AreEqual("Command not valid: You must first place the Robot", ex.Message);
         }

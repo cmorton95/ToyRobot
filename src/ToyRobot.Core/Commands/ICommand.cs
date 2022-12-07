@@ -8,6 +8,7 @@ namespace ToyRobot.Core.Commands
         string Description { get; }
         string Help { get; }
         string LongHelp { get; }
+        bool Verbose { get; }
         string Execute(IEntity entity, string[] args);
     }
 }

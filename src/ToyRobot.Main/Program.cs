@@ -2,31 +2,37 @@
 using ToyRobot.Application.Entities;
 using ToyRobot.Application.Exceptions;
 using ToyRobot.Application.Space;
+using ToyRobot.Main.Extensions;
 
-var table = new Table();
-var robot = new Robot(table);
-
-var handler = new CommandHandler();
-
-handler.RegisterSpace(table)
-    .RegisterEntity(robot)
-    .RegisterCommand(new PlaceCommand())
-    .RegisterCommand(new ReportCommand())
-    .RegisterCommand(new MoveCommand())
-    .RegisterCommand(new LeftCommand())
-    .RegisterCommand(new RightCommand());
-
-while (true)
+internal class Program
 {
-    var input = Console.ReadLine();
-    try
+    private static void Main(string[] args)
     {
-        var response = handler.ExecuteCommand(input ?? "");
+        var verbose = args.Contains("--verbose");
 
-        Console.WriteLine(response);
-    }
-    catch (Exception exception) when (exception is CommandException || exception is ArgumentCountException)
-    {
-        Console.WriteLine(exception.Message);
+        var table = new Table();
+        var robot = new Robot(table);
+
+        var handler = new CommandHandler();
+
+        handler.RegisterSpace(table)
+            .RegisterEntity(robot)
+            .RegisterCommands(verbose);
+
+        while (true)
+        {
+            var input = Console.ReadLine();
+            try
+            {
+                var response = handler.ExecuteCommand(input ?? "");
+
+                if (!string.IsNullOrEmpty(response))
+                    Console.WriteLine(response);
+            }
+            catch (Exception exception) when (exception is CommandException || exception is ArgumentCountException)
+            {
+                Console.WriteLine(exception.Message);
+            }
+        }
     }
 }

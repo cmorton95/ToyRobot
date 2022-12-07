@@ -79,12 +79,33 @@ namespace ToyRobot.UnitTests.Commands
             var command = new Mock<ICommand>();
             command.Setup(c => c.Name).Returns(commandName);
             command.Setup(c => c.Execute(It.IsAny<IEntity>(), It.IsAny<string[]>())).Returns("Test result");
+            command.Setup(c => c.Verbose).Returns(true);
 
             var handler = new CommandHandler()
                 .RegisterSpace(space.Object)
                 .RegisterEntity(entity.Object) 
                 .RegisterCommand(command.Object);
             Assert.AreEqual("Test result", handler.ExecuteCommand(commandName));
+        }
+
+        [TestMethod]
+        public void CommandHandler_ExecuteCommand_SuccessNotVerbose()
+        {
+            var commandName = "Test";
+
+            var space = new Mock<ISpace>();
+            var entity = new Mock<IEntity>();
+
+            var command = new Mock<ICommand>();
+            command.Setup(c => c.Name).Returns(commandName);
+            command.Setup(c => c.Execute(It.IsAny<IEntity>(), It.IsAny<string[]>())).Returns("Test result");
+            command.Setup(c => c.Verbose).Returns(false);
+
+            var handler = new CommandHandler()
+                .RegisterSpace(space.Object)
+                .RegisterEntity(entity.Object) 
+                .RegisterCommand(command.Object);
+            Assert.AreEqual(string.Empty, handler.ExecuteCommand(commandName));
         }
 
         [TestMethod]
