@@ -200,5 +200,25 @@ namespace ToyRobot.UnitTests.Commands
                 .RegisterCommand(command.Object);
             Assert.AreEqual(helpText, handler.ExecuteCommand(helpCommand));
         }
+
+        [TestMethod]
+        public void CommandHandler_GetHelp_FailNotFound()
+        {
+            var commandName = "Test";
+            var helpCommand = "Help notacommand";
+            var returnText = "Command not found";
+
+            var space = new Mock<ISpace>();
+            var entity = new Mock<IEntity>();
+
+            var command = new Mock<ICommand>();
+            command.Setup(c => c.Name).Returns(commandName);
+
+            var handler = new CommandHandler()
+                .RegisterSpace(space.Object)
+                .RegisterEntity(entity.Object) 
+                .RegisterCommand(command.Object);
+            Assert.AreEqual(returnText, handler.ExecuteCommand(helpCommand));
+        }
     }
 }

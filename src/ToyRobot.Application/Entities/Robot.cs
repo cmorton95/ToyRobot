@@ -15,6 +15,9 @@ namespace ToyRobot.Application.Entities
         private readonly double _pace = 1.0;
 
         public Robot(ISpace space) {
+            if (space == null)
+                throw new ArgumentNullException();
+                
             Space = space;
         }
 

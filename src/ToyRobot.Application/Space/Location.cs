@@ -19,6 +19,9 @@ namespace ToyRobot.Application.Space
 
         public ILocation Transform(double distance, double direction)
         {
+            if (direction % 90 != 0)
+                throw new ArgumentException("Direction must be a multiple of 90", nameof(direction));
+
             var dirRad = Math.PI * direction / 180.0;
 
             var newX = Math.Round(_x + distance * Math.Sin(dirRad));
